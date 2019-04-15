@@ -27,33 +27,34 @@ public class PostAsyncActivity extends AppCompatActivity {
         okhttpPostAsync();
     }
 
+    ////POST异步请求
     private void okhttpPostAsync() {
-        Log.i(TAG, "okhttpPostAsync: 111111111");
+        Log.w(TAG, "okhttpPostAsync: 111111111");
         OkHttpClient okHttpClient = new OkHttpClient();
 
         FormBody.Builder builder = new FormBody.Builder();
         builder.add("username", "mliuxb");
         builder.add("password", "123456");
 
-        Request request = new Request.Builder().url("http://www.wanandroid.com/user/login").post(builder.build()).build();
+        Request request = new Request.Builder().url("https://www.wanandroid.com/user/login").post(builder.build()).build();
 
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                Log.i(TAG, "onFailure: call =" + call.toString() + ", e = " + e.getMessage());
+                Log.w(TAG, "onFailure: call =" + call.toString() + ", e = " + e.getMessage());
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
                     final String responseContent = response.body().string();
-                    Log.i(TAG, "run: response.code() = " + response.code());
-                    Log.i(TAG, "run: response.message() = " + response.message());
-                    Log.i(TAG, "run: response.body().string() = " + responseContent);
+                    Log.w(TAG, "run: response.code() = " + response.code());
+                    Log.w(TAG, "run: response.message() = " + response.message());
+                    Log.w(TAG, "run: response.body().string() = " + responseContent);
 
                     JSONObject jsonObject = new JSONObject();
                     int errorCode = jsonObject.optInt("errorCode");
-                    Log.i(TAG, "run: errorCode = " + errorCode);
+                    Log.w(TAG, "run: errorCode = " + errorCode);
                     if (errorCode == 0) {
                         runOnUiThread(new Runnable() {
                             @Override
@@ -62,6 +63,8 @@ public class PostAsyncActivity extends AppCompatActivity {
                             }
                         });
                     }
+                } else {
+                    Log.w(TAG, "onResponse: isFail");
                 }
             }
         });

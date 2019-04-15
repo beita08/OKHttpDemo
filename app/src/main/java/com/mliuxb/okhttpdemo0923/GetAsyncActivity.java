@@ -36,16 +36,16 @@ public class GetAsyncActivity extends AppCompatActivity {
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                Log.i(TAG, "onFailure: call =" + call.toString() + ", e = " + e.getMessage());
+                Log.w(TAG, "onFailure: call =" + call.toString() + ", e = " + e.getMessage());
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
                     final String responseContent = response.body().string();
-                    Log.i(TAG, "run: response.code() = " + response.code());
-                    Log.i(TAG, "run: response.message() = " + response.message());
-                    Log.i(TAG, "run: response.body().string() = " + responseContent);
+                    Log.w(TAG, "run: response.code() = " + response.code());
+                    Log.w(TAG, "run: response.message() = " + response.message());
+                    Log.w(TAG, "run: response.body().string() = " + responseContent);
 
                     runOnUiThread(new Runnable() {
                         @Override
@@ -53,6 +53,8 @@ public class GetAsyncActivity extends AppCompatActivity {
                             webView.loadData(responseContent, "text/html", "UTF-8");
                         }
                     });
+                } else {
+                    Log.w(TAG, "onResponse: fail");
                 }
             }
         });

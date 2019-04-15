@@ -39,17 +39,17 @@ public class PostSyncActivity extends AppCompatActivity {
                     FormBody.Builder builder = new FormBody.Builder();
                     builder.add("username", "mliuxb");
                     builder.add("password", "123456");
-                    Request request = new Request.Builder().url("http://www.wanandroid.com/user/login").post(builder.build()).build();
+                    Request request = new Request.Builder().url("https://www.wanandroid.com/user/login").post(builder.build()).build();
                     Response response = okHttpClient.newCall(request).execute();
                     if (response.isSuccessful()) {
                         final String responseContent = response.body().string();
-                        Log.i(TAG, "run: response.code() = " + response.code());
-                        Log.i(TAG, "run: response.message() = " + response.message());
-                        Log.i(TAG, "run: response.body().string() = " + responseContent);
+                        Log.w(TAG, "run: response.code() = " + response.code());
+                        Log.w(TAG, "run: response.message() = " + response.message());
+                        Log.w(TAG, "run: response.body().string() = " + responseContent);
                         //此时的代码执行在子线程，修改UI的操作请使用handler跳转到UI线程。
                         JSONObject jsonObject = new JSONObject();
                         int errorCode = jsonObject.optInt("errorCode");
-                        Log.i(TAG, "run: errorCode = " + errorCode);
+                        Log.w(TAG, "run: errorCode = " + errorCode);
                         if (errorCode == 0) {
                             runOnUiThread(new Runnable() {
                                 @Override
